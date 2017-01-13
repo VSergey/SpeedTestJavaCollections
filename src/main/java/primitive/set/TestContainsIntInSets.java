@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestContainsInSets {
+public class TestContainsIntInSets {
     private static final int SIZE = 30000;
 
     @Benchmark
@@ -82,7 +82,7 @@ public class TestContainsInSets {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestContainsInSets.class.getSimpleName())
+                .include(TestContainsIntInSets.class.getSimpleName())
                 .build();
 
         new Runner(opt).run();
