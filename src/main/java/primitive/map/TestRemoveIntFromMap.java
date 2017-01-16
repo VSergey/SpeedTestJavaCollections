@@ -110,7 +110,7 @@ public class TestRemoveIntFromMap {
     }
 
     @Setup(Level.Iteration)
-    public void tearDown() {
+    public void setup() {
         map1 = new HashMap<>(size);
         map2 = new TreeMap<>();
         map3 = new LinkedHashMap<>(size);

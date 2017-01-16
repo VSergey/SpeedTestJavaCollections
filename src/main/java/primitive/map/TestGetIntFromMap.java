@@ -119,7 +119,7 @@ public class TestGetIntFromMap {
     }
 
     @Setup(Level.Trial)
-    public void tearDown() {
+    public void setup() {
         map1 = new HashMap<>(size);
         map2 = new TreeMap<>();
         map3 = new LinkedHashMap<>(size);
