@@ -12,3 +12,5 @@ Currently tested next frameworks:
 - [Koloboke](https://github.com/OpenHFT/Koloboke) (1.0.0)
 - [FastUtil](http://fastutil.di.unimi.it/) (7.0.13)
 - [Trove](http://trove.starlight-systems.com/) (3.0.3)
+
+See results of testing on [wiki](https://github.com/VSergey/SpeedTestJavaCollections/wiki)
