@@ -11,18 +11,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
-        <junit.version>4.12</junit.version>
         <jmh.version>1.11.3</jmh.version>
         <maven.compiler.version>3.0</maven.compiler.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
@@ -34,11 +27,15 @@
             <version>${jmh.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- HPPC -->
         <dependency>
             <groupId>com.carrotsearch</groupId>
             <artifactId>hppc</artifactId>
             <version>0.7.1</version>
         </dependency>
+
+        <!-- Eclipse Collections -->
         <dependency>
             <groupId>org.eclipse.collections</groupId>
             <artifactId>eclipse-collections-api</artifactId>
@@ -49,27 +46,42 @@
             <artifactId>eclipse-collections</artifactId>
             <version>7.0.1</version>
         </dependency>
+
+        <!-- Apache Commons Collections -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>4.0</version>
         </dependency>
+
+        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.koloboke</groupId>
-            <artifactId>koloboke-compile</artifactId>
-            <version>0.5.1</version>
-            <scope>provided</scope>
-        </dependency>
+
+        <!-- Koloboke -->
         <dependency>
             <groupId>com.koloboke</groupId>
             <artifactId>koloboke-impl-jdk8</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <!-- Fastutil -->
+        <dependency>
+            <groupId>it.unimi.dsi</groupId>
+            <artifactId>fastutil</artifactId>
+            <version>7.0.13</version>
+        </dependency>
+
+        <!-- Trove -->
+        <dependency>
+            <groupId>net.sf.trove4j</groupId>
+            <artifactId>trove4j</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

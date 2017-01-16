@@ -17,16 +17,16 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 @State(Scope.Benchmark)
 public class TestAddLongToSets {
-
-    private static final int SIZE = 30000;
+    @Param({"30000"})
+    private int size;
 
     @Benchmark
     public void testLongSetOracle() {
         Set<Long> set = new HashSet<>();
-        for(long i = 0; i < SIZE; i+=2) {
+        for(long i = 0; i < size; i+=2) {
             set.add(i);
         }
-        for(long i = 0; i < SIZE; i++) {
+        for(long i = 0; i < size; i++) {
             set.add(i);
         }
     }
@@ -34,10 +34,10 @@ public class TestAddLongToSets {
     @Benchmark
     public void testHPPCLongSet() {
         com.carrotsearch.hppc.LongSet set = new com.carrotsearch.hppc.LongHashSet();
-        for(long i = 0; i < SIZE; i+=2) {
+        for(long i = 0; i < size; i+=2) {
             set.add(i);
         }
-        for(long i = 0; i < SIZE; i++) {
+        for(long i = 0; i < size; i++) {
             set.add(i);
         }
     }
@@ -45,10 +45,10 @@ public class TestAddLongToSets {
     @Benchmark
     public void testKolobokLongSetQ() {
         com.koloboke.collect.set.LongSet set = new com.koloboke.collect.impl.hash.QHashLongSetFactoryImpl().newMutableSet();
-        for(long i = 0; i < SIZE; i+=2) {
+        for(long i = 0; i < size; i+=2) {
             set.add(i);
         }
-        for(long i = 0; i < SIZE; i++) {
+        for(long i = 0; i < size; i++) {
             set.add(i);
         }
     }
@@ -56,10 +56,10 @@ public class TestAddLongToSets {
     @Benchmark
     public void testKolobokLongSetL() {
         com.koloboke.collect.set.LongSet set = new com.koloboke.collect.impl.hash.LHashLongSetFactoryImpl().newMutableSet();
-        for(long i = 0; i < SIZE; i+=2) {
+        for(long i = 0; i < size; i+=2) {
             set.add(i);
         }
-        for(long i = 0; i < SIZE; i++) {
+        for(long i = 0; i < size; i++) {
             set.add(i);
         }
     }
@@ -68,6 +68,7 @@ public class TestAddLongToSets {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(TestAddLongToSets.class.getSimpleName())
+                .param("size","30000","50000","100000")
                 .build();
 
         new Runner(opt).run();
