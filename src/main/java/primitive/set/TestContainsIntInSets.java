@@ -1,7 +1,6 @@
 package primitive.set;
 
 import com.koloboke.collect.impl.hash.*;
-import com.koloboke.collect.set.IntSet;
 import gnu.trove.set.hash.TIntHashSet;
 import it.unimi.dsi.fastutil.ints.*;
 import org.openjdk.jmh.annotations.*;
