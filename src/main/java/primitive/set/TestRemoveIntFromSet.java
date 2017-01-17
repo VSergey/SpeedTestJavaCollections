@@ -116,14 +116,14 @@ public class TestRemoveIntFromSet {
     @Benchmark
     public void test_Koloboke_MutableLHashIntSet() {
         for(int i = 1; i < size; i+=3) {
-            set12.remove(i);
+            set12.removeInt(i);
         }
     }
 
     @Benchmark
     public void test_Koloboke_MutableQHashIntSet() {
         for(int i = 1; i < size; i+=3) {
-            set13.remove(i);
+            set13.removeInt(i);
         }
     }
 
