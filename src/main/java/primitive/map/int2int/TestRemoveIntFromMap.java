@@ -1,4 +1,4 @@
-package primitive.map;
+package primitive.map.int2int;
 
 import com.carrotsearch.hppc.IntIntScatterMap;
 import com.koloboke.collect.map.hash.HashIntIntMap;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestGetIntFromMap {
+public class TestRemoveIntFromMap {
     @Param({"30000"})
     private int size;
 
@@ -42,83 +42,74 @@ public class TestGetIntFromMap {
     public void test_Oracle_HashMap() {
         int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map1.get(i);
+            count += map1.remove(i);
         }
     }
 
     @Benchmark
     public void test_Oracle_TreeMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map2.get(i);
+            map2.remove(i);
         }
     }
 
     @Benchmark
     public void test_Oracle_LinkedMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map3.get(i);
+            map3.remove(i);
         }
     }
 
     @Benchmark
     public void test_FastUtil_IntOpenHashMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map4.get(i);
+            map4.remove(i);
         }
     }
 
     @Benchmark
     public void test_FastUtil_IntLinkedOpenHashMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map5.get(i);
+            map5.remove(i);
         }
     }
 
     @Benchmark
     public void test_Hppc_IntIntHashMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map6.get(i);
+            map6.remove(i);
         }
     }
 
     @Benchmark
     public void test_Hppc_IntIntScatterMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map7.get(i);
+            map7.remove(i);
         }
     }
 
     @Benchmark
     public void test_Koloboke_HashIntIntMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map8.get(i);
+            map8.remove(i);
         }
     }
 
     @Benchmark
     public void test_Trove_TIntIntHashMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map9.get(i);
+            map9.remove(i);
         }
     }
 
     @Benchmark
     public void test_Eclipse_IntIntHashMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map10.get(i);
+            map10.remove(i);
         }
     }
 
-    @Setup(Level.Trial)
+    @Setup(Level.Iteration)
     public void setup() {
         map1 = new HashMap<>(size);
         map2 = new TreeMap<>();
@@ -147,7 +138,7 @@ public class TestGetIntFromMap {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestGetIntFromMap.class.getSimpleName())
+                .include(TestRemoveIntFromMap.class.getSimpleName())
                 .param("size","30000","50000","100000","500000","1000000")
                 .build();
 

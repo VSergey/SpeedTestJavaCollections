@@ -1,4 +1,4 @@
-package primitive.set;
+package primitive.set.set4long;
 
 import com.koloboke.collect.impl.hash.LHashLongSetFactoryImpl;
 import com.koloboke.collect.impl.hash.QHashLongSetFactoryImpl;
@@ -135,7 +135,7 @@ public class TestRemoveLongFromSets {
         }
     }
 
-    @Setup(Level.Trial)
+    @Setup(Level.Iteration)
     public void setup() {
         set1 = new HashSet<>(size);
         set2 = new LinkedHashSet<>(size);

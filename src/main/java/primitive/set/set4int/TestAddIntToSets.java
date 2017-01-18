@@ -1,4 +1,4 @@
-package primitive.set;
+package primitive.set.set4int;
 
 import com.koloboke.collect.impl.hash.*;
 import gnu.trove.set.hash.TIntHashSet;

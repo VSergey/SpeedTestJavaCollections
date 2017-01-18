@@ -1,4 +1,4 @@
-package primitive.set;
+package primitive.set.set4long;
 
 import gnu.trove.set.hash.TLongHashSet;
 import it.unimi.dsi.fastutil.longs.*;

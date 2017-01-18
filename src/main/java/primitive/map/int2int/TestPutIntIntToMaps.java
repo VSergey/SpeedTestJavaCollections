@@ -1,4 +1,4 @@
-package primitive.map;
+package primitive.map.int2int;
 
 import com.carrotsearch.hppc.IntIntScatterMap;
 import com.koloboke.collect.map.hash.HashIntIntMap;

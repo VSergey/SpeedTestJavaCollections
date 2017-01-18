@@ -1,4 +1,4 @@
-package primitive.set;
+package primitive.set.set4long;
 
 import com.koloboke.collect.impl.hash.LHashLongSetFactoryImpl;
 import com.koloboke.collect.impl.hash.QHashLongSetFactoryImpl;
