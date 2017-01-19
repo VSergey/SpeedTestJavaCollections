@@ -1,5 +1,6 @@
 package primitive.set.set4long;
 
+import com.carrotsearch.hppc.procedures.LongProcedure;
 import com.koloboke.collect.impl.hash.LHashLongSetFactoryImpl;
 import com.koloboke.collect.impl.hash.QHashLongSetFactoryImpl;
 import gnu.trove.set.hash.TLongHashSet;
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestContainsLongInSets {
+public class TestIterateLongSets {
     @Param({"30000"})
     private int size;
     private Set<Long> set1;
@@ -40,131 +41,136 @@ public class TestContainsLongInSets {
     private LongRBTreeSet set16;
 
     @Benchmark
-    public void test_Oracle_HashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set1.contains(i)) count++;
-        }
+    public long test_Oracle_HashSet() {
+        final long sum[] = new long[1];
+        set1.forEach(i -> sum[0]+=i);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Oracle_LinkedHashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set2.contains(i)) count++;
-        }
+    public long test_Oracle_LinkedHashSet() {
+        final long sum[] = new long[1];
+        set2.forEach(i -> sum[0]+=i);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Oracle_TreeSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set3.contains(i)) count++;
-        }
+    public long test_Oracle_TreeSet() {
+        final long sum[] = new long[1];
+        set3.forEach(i -> sum[0]+=i);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_HPPC_LongHashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set4.contains(i)) count++;
-        }
+    public long test_HPPC_LongHashSet() {
+        return set4.forEach(new LongProcedure() {
+            long sum;
+
+            public void apply(long value) {
+                sum+=value;
+            }
+        }).sum;
     }
 
     @Benchmark
-    public void test_HPPC_LongScatterSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set5.contains(i)) count++;
-        }
+    public long test_HPPC_LongScatterSet() {
+        return set5.forEach(new LongProcedure() {
+            long sum;
+
+            public void apply(long value) {
+                sum+=value;
+            }
+        }).sum;
     }
 
     @Benchmark
-    public void test_Koloboke_MutableLongSetQ() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set6.contains(i)) count++;
-        }
+    public long test_Koloboke_MutableLongSetQ() {
+        final long sum[] = new long[1];
+        set6.cursor().forEachForward(value -> sum[0]+=value);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Koloboke_MutableLongSetL() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set7.contains(i)) count++;
-        }
+    public long test_Koloboke_MutableLongSetL() {
+        final long sum[] = new long[1];
+        set7.cursor().forEachForward(value -> sum[0]+=value);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Koloboke_UpdatableLongSetL() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set8.contains(i)) count++;
-        }
+    public long test_Koloboke_UpdatableLongSetL() {
+        final long sum[] = new long[1];
+        set8.cursor().forEachForward(value -> sum[0]+=value);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Koloboke_UpdatableLongSetQ() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set9.contains(i)) count++;
-        }
+    public long test_Koloboke_UpdatableLongSetQ() {
+        final long sum[] = new long[1];
+        set9.cursor().forEachForward(value -> sum[0]+=value);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Trove_TLongHashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set10.contains(i)) count++;
-        }
+    public long test_Trove_TLongHashSet() {
+        final long sum[] = new long[1];
+        set10.forEach(value -> {
+            sum[0]+=value;
+            return true;
+        });
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Eclipse_LongHashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set11.contains(i)) count++;
-        }
+    public long test_Eclipse_LongHashSet() {
+        final long sum[] = new long[1];
+        set11.forEach(i -> sum[0]+=i);
+        return sum[0];
     }
 
     @Benchmark
-    public void test_Fastutil_LongOpenHashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set12.contains(i)) count++;
+    public long test_Fastutil_LongOpenHashSet() {
+        long sum = 0;
+        for(LongIterator it = set12.iterator(); it.hasNext(); ) {
+            sum += it.nextLong();
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Fastutil_LongOpenHashBigSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set13.contains(i)) count++;
+    public long test_Fastutil_LongOpenHashBigSet() {
+        long sum = 0;
+        for(LongIterator it = set13.iterator(); it.hasNext(); ) {
+            sum += it.nextLong();
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Fastutil_LongAVLTreeSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set14.contains(i)) count++;
+    public long test_Fastutil_LongAVLTreeSet() {
+        long sum = 0;
+        for(LongIterator it = set14.iterator(); it.hasNext(); ) {
+            sum += it.nextLong();
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Fastutil_LongLinkedOpenHashSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set15.contains(i)) count++;
+    public long test_Fastutil_LongLinkedOpenHashSet() {
+        long sum = 0;
+        for(LongIterator it = set15.iterator(); it.hasNext(); ) {
+            sum += it.nextLong();
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Fastutil_LongRBTreeSet() {
-        int count = 0;
-        for(long i = 1; i < size; i+=3) {
-            if(set16.contains(i)) count++;
+    public long test_Fastutil_LongRBTreeSet() {
+        long sum = 0;
+        for(LongIterator it = set16.iterator(); it.hasNext(); ) {
+            sum += it.nextLong();
         }
+        return sum;
     }
 
     @Setup(Level.Trial)
@@ -208,7 +214,7 @@ public class TestContainsLongInSets {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestContainsLongInSets.class.getSimpleName())
+                .include(TestIterateLongSets.class.getSimpleName())
                 .param("size","50000","100000","500000","1000000")
                 .build();
 

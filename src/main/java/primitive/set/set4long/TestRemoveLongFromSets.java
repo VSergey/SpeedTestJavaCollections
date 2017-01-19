@@ -164,6 +164,8 @@ public class TestRemoveLongFromSets {
             set11.add(i);
             set12.add(i);
             set13.add(i);
+            set14.add(i);
+            set15.add(i);
             set16.add(i);
         }
     }
