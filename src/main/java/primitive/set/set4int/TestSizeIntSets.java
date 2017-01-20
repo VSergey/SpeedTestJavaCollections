@@ -3,7 +3,6 @@ package primitive.set.set4int;
 import com.koloboke.collect.impl.hash.*;
 import gnu.trove.set.hash.TIntHashSet;
 import it.unimi.dsi.fastutil.ints.*;
-import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jol.info.GraphLayout;
 import org.openjdk.jol.vm.VM;
 
@@ -29,7 +28,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Oracle_HashSet() {
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> set = new HashSet<>(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -37,7 +36,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Oracle_LinkedHashSet() {
-        Set<Integer> set = new LinkedHashSet<>();
+        Set<Integer> set = new LinkedHashSet<>(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -53,7 +52,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_HPPC_IntHashSet() {
-        com.carrotsearch.hppc.IntHashSet set = new com.carrotsearch.hppc.IntHashSet();
+        com.carrotsearch.hppc.IntHashSet set = new com.carrotsearch.hppc.IntHashSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -61,7 +60,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_HPPC_IntScatterSet() {
-        com.carrotsearch.hppc.IntHashSet set = new com.carrotsearch.hppc.IntScatterSet();
+        com.carrotsearch.hppc.IntHashSet set = new com.carrotsearch.hppc.IntScatterSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -69,7 +68,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Eclipse_IntHashSet() {
-        org.eclipse.collections.impl.set.mutable.primitive.IntHashSet set = new org.eclipse.collections.impl.set.mutable.primitive.IntHashSet();
+        org.eclipse.collections.impl.set.mutable.primitive.IntHashSet set = new org.eclipse.collections.impl.set.mutable.primitive.IntHashSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -77,7 +76,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Fastutil_IntOpenHashSet() {
-        IntOpenHashSet set = new IntOpenHashSet();
+        IntOpenHashSet set = new IntOpenHashSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -85,7 +84,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Fastutil_IntOpenHashBigSet() {
-        IntOpenHashBigSet set = new IntOpenHashBigSet();
+        IntOpenHashBigSet set = new IntOpenHashBigSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -101,7 +100,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Fastutil_IntLinkedOpenHashSet() {
-        IntLinkedOpenHashSet set = new IntLinkedOpenHashSet();
+        IntLinkedOpenHashSet set = new IntLinkedOpenHashSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -117,7 +116,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Koloboke_MutableLHashIntSet() {
-        MutableLHashIntSetGO set = new com.koloboke.collect.impl.hash.LHashIntSetFactoryImpl().newMutableSet();
+        MutableLHashIntSetGO set = new com.koloboke.collect.impl.hash.LHashIntSetFactoryImpl().newMutableSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -125,7 +124,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Koloboke_MutableQHashIntSet() {
-        MutableQHashIntSetGO set = new com.koloboke.collect.impl.hash.QHashIntSetFactoryImpl().newMutableSet();
+        MutableQHashIntSetGO set = new com.koloboke.collect.impl.hash.QHashIntSetFactoryImpl().newMutableSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -133,7 +132,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Koloboke_UpdatableLHashIntSet() {
-        UpdatableLHashIntSetGO set = new com.koloboke.collect.impl.hash.LHashIntSetFactoryImpl().newUpdatableSet();
+        UpdatableLHashIntSetGO set = new com.koloboke.collect.impl.hash.LHashIntSetFactoryImpl().newUpdatableSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -141,7 +140,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Koloboke_UpdatableQHashIntSet() {
-        UpdatableQHashIntSetGO set = new com.koloboke.collect.impl.hash.QHashIntSetFactoryImpl().newUpdatableSet();
+        UpdatableQHashIntSetGO set = new com.koloboke.collect.impl.hash.QHashIntSetFactoryImpl().newUpdatableSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
@@ -149,7 +148,7 @@ public class TestSizeIntSets {
     }
 
     public Object get_Trove_TIntHashSet() {
-        TIntHashSet set = new TIntHashSet();
+        TIntHashSet set = new TIntHashSet(size);
         for(int i = 0; i < size; i++) {
             set.add(i);
         }
