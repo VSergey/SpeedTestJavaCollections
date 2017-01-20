@@ -82,6 +82,18 @@
             <version>3.0.3</version>
         </dependency>
 
+        <!-- JOL -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-cli</artifactId>
+            <version>0.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-samples</artifactId>
+            <version>0.7.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
