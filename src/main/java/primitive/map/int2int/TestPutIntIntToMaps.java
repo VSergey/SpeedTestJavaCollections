@@ -49,7 +49,7 @@ public class TestPutIntIntToMaps {
     }
 
     @Benchmark
-    public void test_Oracle_LinkedMap() {
+    public void test_Oracle_LinkedHashMap() {
         Map<Integer,Integer> map = new LinkedHashMap<>();
         for(int i = 0; i < size; i+=2) {
             map.put(i,i);

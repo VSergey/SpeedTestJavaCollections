@@ -41,9 +41,8 @@ public class TestRemoveIntFromMap {
 
     @Benchmark
     public void test_Oracle_HashMap() {
-        int count = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map1.remove(i);
+            map1.remove(i);
         }
     }
 
@@ -97,20 +96,6 @@ public class TestRemoveIntFromMap {
     }
 
     @Benchmark
-    public void test_FastUtil_Int2IntAVLTreeMap() {
-        for(int i = 0; i < size; i+=3) {
-            map11.remove(i);
-        }
-    }
-
-    @Benchmark
-    public void test_FastUtil_Int2IntRBTreeMap() {
-        for(int i = 0; i < size; i+=3) {
-            map12.remove(i);
-        }
-    }
-
-    @Benchmark
     public void test_Trove_TIntIntHashMap() {
         for(int i = 0; i < size; i+=3) {
             map9.remove(i);
@@ -121,6 +106,20 @@ public class TestRemoveIntFromMap {
     public void test_Eclipse_IntIntHashMap() {
         for(int i = 0; i < size; i+=3) {
             map10.remove(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_Int2IntAVLTreeMap() {
+        for(int i = 0; i < size; i+=3) {
+            map11.remove(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_Int2IntRBTreeMap() {
+        for(int i = 0; i < size; i+=3) {
+            map12.remove(i);
         }
     }
 
@@ -161,7 +160,7 @@ public class TestRemoveIntFromMap {
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(TestRemoveIntFromMap.class.getSimpleName())
-                .param("size","50000","100000","500000","1000000")
+                .param("size","50000","100000","300000","500000","750000","1000000")
                 .build();
 
         new Runner(opt).run();
