@@ -20,43 +20,43 @@ import java.util.concurrent.TimeUnit;
 public class TestAddToSet {
     private static final int SIZE = 30000;
 
-    private void fillSet(Set<String> map) {
+    private void fillSet(Set<String> set) {
         for(int i = 0; i < SIZE; i+=2) {
-            map.add(Integer.toString(i));
+            set.add(Integer.toString(i));
         }
         for(int i = 0; i < SIZE; i++) {
-            map.add(Integer.toString(i));
+            set.add(Integer.toString(i));
         }
     }
 
     @Benchmark
-    public void testOracleHashMap() {
-        Set<String> map = new HashSet<>();
-        fillSet(map);
+    public void testOracleHashSet() {
+        Set<String> set = new HashSet<>();
+        fillSet(set);
     }
 
     @Benchmark
-    public void testOracleTreeMap() {
-        Set<String> map = new TreeSet<>();
-        fillSet(map);
+    public void testOracleTreeSet() {
+        Set<String> set = new TreeSet<>();
+        fillSet(set);
     }
 
     @Benchmark
-    public void testOracleLinkedMap() {
-        Set<String> map = new LinkedHashSet<>();
-        fillSet(map);
+    public void testOracleLinkedSet() {
+        Set<String> set = new LinkedHashSet<>();
+        fillSet(set);
     }
 
     @Benchmark
     public void testEclipseUnifiedSet() {
-        Set<String> map = new UnifiedSet<>();
-        fillSet(map);
+        Set<String> set = new UnifiedSet<>();
+        fillSet(set);
     }
 
     @Benchmark
     public void testEclipseTreeSortedSet() {
-        Set<String> map = new TreeSortedSet<>();
-        fillSet(map);
+        Set<String> set = new TreeSortedSet<>();
+        fillSet(set);
     }
 
     public static void main(String[] args) throws RunnerException {
