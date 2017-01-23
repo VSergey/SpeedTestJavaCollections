@@ -1,6 +1,8 @@
 package objects.map;
 
+import com.carrotsearch.hppc.*;
 import com.google.common.collect.HashBiMap;
+import com.koloboke.collect.map.hash.*;
 import org.apache.commons.collections4.map.*;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
@@ -21,76 +23,116 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 @State(Scope.Benchmark)
 public class TestAddToMap {
-    private static final int SIZE = 30000;
+    @Param({"30000"})
+    private int size;
 
     private void fillMap(Map<String, String> map) {
-        for(int i = 0; i < SIZE; i+=2) {
+        for(int i = 0; i < size; i+=2) {
             String key = Integer.toString(i);
             map.put(key, key);
         }
-        for(int i = 0; i < SIZE; i++) {
+        for(int i = 0; i < size; i++) {
             String key = Integer.toString(i);
             map.put(key, key);
         }
     }
 
     @Benchmark
-    public void testOracleHashMap() {
+    public void test_Oracle_HashMap() {
         Map<String,String> map = new HashMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testOracleTreeMap() {
+    public void test_Oracle_TreeMap() {
         Map<String,String> map = new TreeMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testOracleLinkedMap() {
+    public void test_Oracle_LinkedMap() {
         Map<String,String> map = new LinkedHashMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testApacheHashedMap() {
+    public void test_Apache_HashedMap() {
         Map<String,String> map = new HashedMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testApacheLinkedMap() {
+    public void test_Apache_LinkedMap() {
         Map<String,String> map = new LinkedMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testApachePatriciaTrie() {
+    public void test_Apache_PatriciaTrie() {
         Map<String,String> map = new PatriciaTrie<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testEclipseUnifiedMap() {
+    public void test_Eclipse_UnifiedMap() {
         Map<String,String> map = new UnifiedMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testEclipseSortedTreeMap() {
+    public void test_Eclipse_SortedTreeMap() {
         Map<String,String> map = new TreeSortedMap<>();
         fillMap(map);
     }
 
     @Benchmark
-    public void testGoogleHashBiMap() {
+    public void test_Google_HashBiMap() {
         Map<String,String> map = HashBiMap.create();
         fillMap(map);
+    }
+
+    @Benchmark
+    public void test_Koloboke_MutableHashObjObjMap() {
+        Map<String,String> map = HashObjObjMaps.getDefaultFactory().newMutableMap();
+        fillMap(map);
+    }
+
+    @Benchmark
+    public void test_Koloboke_UpdatableHashObjObjMap() {
+        Map<String,String> map = HashObjObjMaps.getDefaultFactory().newUpdatableMap();
+        fillMap(map);
+    }
+
+    @Benchmark
+    public void test_Hppc_ObjectHashMap() {
+        ObjectObjectMap<String,String> map = new ObjectObjectHashMap<>();
+        for(int i = 0; i < size; i+=2) {
+            String key = Integer.toString(i);
+            map.put(key, key);
+        }
+        for(int i = 0; i < size; i++) {
+            String key = Integer.toString(i);
+            map.put(key, key);
+        }
+    }
+
+    @Benchmark
+    public void test_Hppc_ObjectScatterMap() {
+        ObjectObjectMap<String,String> map = new ObjectObjectScatterMap<>();
+        for(int i = 0; i < size; i+=2) {
+            String key = Integer.toString(i);
+            map.put(key, key);
+        }
+        for(int i = 0; i < size; i++) {
+            String key = Integer.toString(i);
+            map.put(key, key);
+        }
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(TestAddToMap.class.getSimpleName())
+                .param("size","50000","100000","500000","1000000")
                 .build();
 
         new Runner(opt).run();
