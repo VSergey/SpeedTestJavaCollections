@@ -82,6 +82,28 @@ public class TestPutIntIntToMaps {
     }
 
     @Benchmark
+    public void test_FastUtil_Int2IntAVLTreeMap() {
+        Int2IntAVLTreeMap map = new Int2IntAVLTreeMap();
+        for(int i = 0; i < size; i+=2) {
+            map.put(i,i);
+        }
+        for(int i = 0; i < size; i++) {
+            map.put(i,i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_Int2IntRBTreeMap() {
+        Int2IntRBTreeMap map = new Int2IntRBTreeMap();
+        for(int i = 0; i < size; i+=2) {
+            map.put(i,i);
+        }
+        for(int i = 0; i < size; i++) {
+            map.put(i,i);
+        }
+    }
+
+    @Benchmark
     public void test_Hppc_IntIntHashMap() {
         com.carrotsearch.hppc.IntIntHashMap map = new com.carrotsearch.hppc.IntIntHashMap();
         for(int i = 0; i < size; i+=2) {
@@ -136,10 +158,17 @@ public class TestPutIntIntToMaps {
         }
     }
 
+    @TearDown(Level.Iteration)
+    public void clear()  {
+        System.gc();
+        System.gc();
+        System.gc();
+    }
+
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(TestPutIntIntToMaps.class.getSimpleName())
-                .param("size","30000","50000","100000","500000","1000000")
+                .param("size","50000","100000","500000","1000000")
                 .build();
 
         new Runner(opt).run();

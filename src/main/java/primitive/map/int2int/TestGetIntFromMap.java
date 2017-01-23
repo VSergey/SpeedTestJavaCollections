@@ -5,8 +5,7 @@ import com.koloboke.collect.map.hash.HashIntIntMap;
 import com.koloboke.collect.map.hash.HashIntIntMaps;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
-import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.*;
 import org.eclipse.collections.impl.map.mutable.primitive.IntIntHashMap;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -37,85 +36,115 @@ public class TestGetIntFromMap {
     private HashIntIntMap map8;
     private TIntIntMap map9;
     private IntIntHashMap map10;
+    private Int2IntAVLTreeMap map11;
+    private Int2IntRBTreeMap map12;
 
     @Benchmark
-    public void test_Oracle_HashMap() {
-        int count = 0;
+    public long test_Oracle_HashMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map1.get(i);
+            sum += map1.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Oracle_TreeMap() {
-        int count = 0;
+    public long test_Oracle_TreeMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map2.get(i);
+            sum += map2.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Oracle_LinkedMap() {
-        int count = 0;
+    public long test_Oracle_LinkedMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map3.get(i);
+            sum += map3.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_FastUtil_IntOpenHashMap() {
-        int count = 0;
+    public long test_FastUtil_IntOpenHashMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map4.get(i);
+            sum += map4.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_FastUtil_IntLinkedOpenHashMap() {
-        int count = 0;
+    public long test_FastUtil_IntLinkedOpenHashMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map5.get(i);
+            sum += map5.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Hppc_IntIntHashMap() {
-        int count = 0;
+    public long test_Hppc_IntIntHashMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map6.get(i);
+            sum += map6.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Hppc_IntIntScatterMap() {
-        int count = 0;
+    public long test_Hppc_IntIntScatterMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map7.get(i);
+            sum += map7.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Koloboke_HashIntIntMap() {
-        int count = 0;
+    public long test_Koloboke_HashIntIntMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map8.get(i);
+            sum += map8.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Trove_TIntIntHashMap() {
-        int count = 0;
+    public long test_FastUtil_Int2IntAVLTreeMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map9.get(i);
+            sum += map11.get(i);
         }
+        return sum;
     }
 
     @Benchmark
-    public void test_Eclipse_IntIntHashMap() {
-        int count = 0;
+    public long test_FastUtil_Int2IntRBTreeMap() {
+        long sum = 0;
         for(int i = 0; i < size; i+=3) {
-            count += map10.get(i);
+            sum += map12.get(i);
         }
+        return sum;
+    }
+
+    @Benchmark
+    public long test_Trove_TIntIntHashMap() {
+        long sum = 0;
+        for(int i = 0; i < size; i+=3) {
+            sum += map9.get(i);
+        }
+        return sum;
+    }
+
+    @Benchmark
+    public long test_Eclipse_IntIntHashMap() {
+        long sum = 0;
+        for(int i = 0; i < size; i+=3) {
+            sum += map10.get(i);
+        }
+        return sum;
     }
 
     @Setup(Level.Trial)
@@ -130,6 +159,8 @@ public class TestGetIntFromMap {
         map8 = HashIntIntMaps.getDefaultFactory().newMutableMap(size);
         map9 = new TIntIntHashMap(size);
         map10 = new IntIntHashMap(size);
+        map11 = new Int2IntAVLTreeMap();
+        map12 = new Int2IntRBTreeMap();
 
         for(int i = 0; i < size; i++) {
             map1.put(i,i);
@@ -142,13 +173,18 @@ public class TestGetIntFromMap {
             map8.put(i,i);
             map9.put(i,i);
             map10.put(i,i);
+            map11.put(i,i);
+            map12.put(i,i);
         }
+        System.gc();
+        System.gc();
+        System.gc();
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(TestGetIntFromMap.class.getSimpleName())
-                .param("size","30000","50000","100000","500000","1000000")
+                .param("size","50000","100000","500000","1000000")
                 .build();
 
         new Runner(opt).run();

@@ -5,8 +5,7 @@ import com.koloboke.collect.map.hash.HashIntIntMap;
 import com.koloboke.collect.map.hash.HashIntIntMaps;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
-import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.*;
 import org.eclipse.collections.impl.map.mutable.primitive.IntIntHashMap;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -37,6 +36,8 @@ public class TestRemoveIntFromMap {
     private HashIntIntMap map8;
     private TIntIntMap map9;
     private IntIntHashMap map10;
+    private Int2IntAVLTreeMap map11;
+    private Int2IntRBTreeMap map12;
 
     @Benchmark
     public void test_Oracle_HashMap() {
@@ -96,6 +97,20 @@ public class TestRemoveIntFromMap {
     }
 
     @Benchmark
+    public void test_FastUtil_Int2IntAVLTreeMap() {
+        for(int i = 0; i < size; i+=3) {
+            map11.remove(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_Int2IntRBTreeMap() {
+        for(int i = 0; i < size; i+=3) {
+            map12.remove(i);
+        }
+    }
+
+    @Benchmark
     public void test_Trove_TIntIntHashMap() {
         for(int i = 0; i < size; i+=3) {
             map9.remove(i);
@@ -121,6 +136,8 @@ public class TestRemoveIntFromMap {
         map8 = HashIntIntMaps.getDefaultFactory().newMutableMap(size);
         map9 = new TIntIntHashMap(size);
         map10 = new IntIntHashMap(size);
+        map11 = new Int2IntAVLTreeMap();
+        map12 = new Int2IntRBTreeMap();
 
         for(int i = 0; i < size; i++) {
             map1.put(i,i);
@@ -133,13 +150,18 @@ public class TestRemoveIntFromMap {
             map8.put(i,i);
             map9.put(i,i);
             map10.put(i,i);
+            map11.put(i,i);
+            map12.put(i,i);
         }
+        System.gc();
+        System.gc();
+        System.gc();
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
                 .include(TestRemoveIntFromMap.class.getSimpleName())
-                .param("size","30000","50000","100000","500000","1000000")
+                .param("size","50000","100000","500000","1000000")
                 .build();
 
         new Runner(opt).run();
