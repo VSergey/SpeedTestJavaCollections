@@ -3,6 +3,8 @@ package objects.map;
 import com.carrotsearch.hppc.*;
 import com.google.common.collect.HashBiMap;
 import com.koloboke.collect.map.hash.*;
+import gnu.trove.map.hash.THashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.apache.commons.collections4.map.*;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
@@ -127,6 +129,25 @@ public class TestAddToMap {
             String key = Integer.toString(i);
             map.put(key, key);
         }
+    }
+
+    @Benchmark
+    public void test_FastUtil_Object2ObjectOpenHashMap() {
+        Map<String,String> map = new Object2ObjectOpenHashMap<>();
+        fillMap(map);
+    }
+
+    @Benchmark
+    public void test_Trove_THashMap() {
+        Map<String,String> map = new THashMap<>();
+        fillMap(map);
+    }
+
+    @TearDown(Level.Iteration)
+    public void clear()  {
+        System.gc();
+        System.gc();
+        System.gc();
     }
 
     public static void main(String[] args) throws RunnerException {
