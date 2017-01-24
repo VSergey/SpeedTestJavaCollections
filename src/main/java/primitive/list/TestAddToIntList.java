@@ -1,7 +1,6 @@
 package primitive.list;
 
-import com.carrotsearch.hppc.LongArrayList;
-import objects.set.TestAddToSet;
+import com.carrotsearch.hppc.IntArrayList;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -17,30 +16,30 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestAddToLongArrayList {
+public class TestAddToIntList {
     @Param({"30000"})
     private int size;
 
     @Benchmark
     public void test_Oracle_ArrayList() {
-        List<Long> list = new ArrayList<>();
-        for(long i = 0; i < size; i++) {
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
             list.add(i);
         }
     }
 
     @Benchmark
     public void test_Oracle_LinkedList() {
-        List<Long> list = new LinkedList<>();
-        for(long i = 0; i < size; i++) {
+        List<Integer> list = new LinkedList<>();
+        for(int i = 0; i < size; i++) {
             list.add(i);
         }
     }
 
     @Benchmark
-    public void test_Hppc_LongArrayList() {
-        LongArrayList list = new LongArrayList();
-        for(long i = 0; i < size; i++) {
+    public void test_Hppc_IntArrayList() {
+        IntArrayList list = new IntArrayList();
+        for(int i = 0; i < size; i++) {
             list.add(i);
         }
     }
@@ -48,7 +47,7 @@ public class TestAddToLongArrayList {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestAddToLongArrayList.class.getSimpleName())
+                .include(TestAddToIntList.class.getSimpleName())
                 .param("size","50000","100000","500000","1000000")
                 .build();
 
