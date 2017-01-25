@@ -126,8 +126,19 @@ public class TestPutIntIntToMaps {
     }
 
     @Benchmark
-    public void test_Koloboke_HashIntIntMap() {
+    public void test_Koloboke_MutableHashIntIntMap() {
         HashIntIntMap map = HashIntIntMaps.getDefaultFactory().newMutableMap();
+        for(int i = 0; i < size; i+=2) {
+            map.put(i,i);
+        }
+        for(int i = 0; i < size; i++) {
+            map.put(i,i);
+        }
+    }
+
+    @Benchmark
+    public void test_Koloboke_UpdatableHashIntIntMap() {
+        HashIntIntMap map = HashIntIntMaps.getDefaultFactory().newUpdatableMap();
         for(int i = 0; i < size; i+=2) {
             map.put(i,i);
         }
