@@ -1,6 +1,6 @@
-package primitive.map.string2double;
+package primitive.map.object2int;
 
-import com.carrotsearch.hppc.ObjectDoubleScatterMap;
+import com.carrotsearch.hppc.ObjectIntScatterMap;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -16,73 +16,62 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestPutStringDoubleToMaps {
+public class TestPutObjectIntToMaps {
     @Param({"30000"})
     private int size;
 
     @Benchmark
     public void test_Oracle_HashMap() {
-        Map<String,Double> map = new HashMap<>();
+        Map<Integer,Integer> map = new HashMap<>();
         for(int i = 0; i < size; i+=2) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
         for(int i = 0; i < size; i++) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
     }
 
     @Benchmark
     public void test_Oracle_TreeMap() {
-        Map<String,Double> map = new TreeMap<>();
+        Map<Integer,Integer> map = new TreeMap<>();
         for(int i = 0; i < size; i+=2) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
         for(int i = 0; i < size; i++) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
     }
 
     @Benchmark
     public void test_Oracle_LinkedHashMap() {
-        Map<String,Double> map = new LinkedHashMap<>();
+        Map<Integer,Integer> map = new LinkedHashMap<>();
         for(int i = 0; i < size; i+=2) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
         for(int i = 0; i < size; i++) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
-        }
-    }
-
-
-    @Benchmark
-    public void test_Hppc_ObjectDoubleHashMap() {
-        com.carrotsearch.hppc.ObjectDoubleHashMap<String> map = new com.carrotsearch.hppc.ObjectDoubleHashMap<>();
-        for(int i = 0; i < size; i+=2) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
-        }
-        for(int i = 0; i < size; i++) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
     }
 
     @Benchmark
-    public void test_Hppc_ObjectDoubleScatterMap() {
-        ObjectDoubleScatterMap<String> map = new ObjectDoubleScatterMap<>();
+    public void test_Hppc_ObjectIntHashMap() {
+        com.carrotsearch.hppc.ObjectIntHashMap<Integer> map = new com.carrotsearch.hppc.ObjectIntHashMap<>();
         for(int i = 0; i < size; i+=2) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
         }
         for(int i = 0; i < size; i++) {
-            double v = i/3.333;
-            map.put(String.valueOf(i),v);
+            map.put(i,i);
+        }
+    }
+
+    @Benchmark
+    public void test_Hppc_ObjectIntScatterMap() {
+        ObjectIntScatterMap<Integer> map = new ObjectIntScatterMap<>();
+        for(int i = 0; i < size; i+=2) {
+            map.put(i,i);
+        }
+        for(int i = 0; i < size; i++) {
+            map.put(i,i);
         }
     }
 
@@ -96,7 +85,7 @@ public class TestPutStringDoubleToMaps {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestPutStringDoubleToMaps.class.getSimpleName())
+                .include(TestPutObjectIntToMaps.class.getSimpleName())
                 .param("size","50000","100000","500000","1000000")
                 .build();
 
