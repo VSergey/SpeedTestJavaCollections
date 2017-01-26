@@ -26,6 +26,17 @@ public class TestReferenceSize extends TestSize {
         return new Object[] { new long[size], objects};
     }
 
+    @Size
+    public Object objectObjectSize() {
+        Object[] objects1 = new Object[size];
+        Object[] objects2 = new Object[size];
+        for(int i = 0; i < size; i++) {
+            objects1[i] = new Object();
+            objects2[i] = new Object();
+        }
+        return new Object[] { objects1, objects2};
+    }
+
     public static void main(String[] args) throws Exception {
         run(TestReferenceSize.class);
     }
