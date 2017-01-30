@@ -1,6 +1,8 @@
 package primitive.list;
 
 import com.carrotsearch.hppc.LongArrayList;
+import gnu.trove.list.array.TLongArrayList;
+import gnu.trove.list.linked.TLongLinkedList;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -44,6 +46,45 @@ public class TestAddToLongList {
         }
     }
 
+    @Benchmark
+    public void test_Trove_TLongArrayList() {
+        TLongArrayList list = new TLongArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_Trove_TLongLinkedList() {
+        TLongLinkedList list = new TLongLinkedList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_Eclipse_LongArrayList() {
+        org.eclipse.collections.impl.list.mutable.primitive.LongArrayList list = new org.eclipse.collections.impl.list.mutable.primitive.LongArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_LongArrayList() {
+        it.unimi.dsi.fastutil.longs.LongArrayList list = new it.unimi.dsi.fastutil.longs.LongArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_LongBigArrayBigList() {
+        it.unimi.dsi.fastutil.longs.LongBigList list = new it.unimi.dsi.fastutil.longs.LongBigArrayBigList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()

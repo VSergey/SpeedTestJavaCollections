@@ -1,6 +1,8 @@
 package primitive.list;
 
 import com.carrotsearch.hppc.IntArrayList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.linked.TIntLinkedList;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -39,6 +41,46 @@ public class TestAddToIntList {
     @Benchmark
     public void test_Hppc_IntArrayList() {
         IntArrayList list = new IntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_Trove_TIntArrayList() {
+        TIntArrayList list = new TIntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_Trove_TIntLinkedList() {
+        TIntLinkedList list = new TIntLinkedList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_Eclipse_IntArrayList() {
+        org.eclipse.collections.impl.list.mutable.primitive.IntArrayList list = new org.eclipse.collections.impl.list.mutable.primitive.IntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_IntArrayList() {
+        it.unimi.dsi.fastutil.ints.IntArrayList list = new it.unimi.dsi.fastutil.ints.IntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+    }
+
+    @Benchmark
+    public void test_FastUtil_IntBigArrayBigList() {
+        it.unimi.dsi.fastutil.ints.IntBigArrayBigList list = new it.unimi.dsi.fastutil.ints.IntBigArrayBigList();
         for(int i = 0; i < size; i++) {
             list.add(i);
         }

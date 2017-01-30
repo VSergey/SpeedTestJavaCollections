@@ -1,6 +1,6 @@
 package tools;
 
-import org.openjdk.jol.info.GraphLayout;
+import org.openjdk.jol.info.*;
 import org.openjdk.jol.vm.VM;
 
 import java.io.PrintWriter;
@@ -14,18 +14,21 @@ public class TestSize {
         this.size = size;
     }
 
-    protected void printSizeOfObjects(PrintWriter pw) {
+    private void printSizeOfObjects(PrintWriter pw) {
         pw.println("-----------------------------" + size + "--------------------------------");
         List<Method> methods = enumerateTestMethods(this.getClass());
+        methods.sort(new MethodComparator());
         for(Method m: methods) {
+//            pw.print("Free memory (MB): "); pw.println(Runtime.getRuntime().freeMemory()/1024/1024);
             try {
                 Object result = m.invoke(this);
                 printSizeOfObject(result, m.getName(), pw);
             } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
+//            pw.print("Free memory (MB): "); pw.println(Runtime.getRuntime().freeMemory()/1024/1024);
+            System.gc();
         }
-        System.gc();
     }
 
     public static void run(Class<? extends TestSize> clazz) {
@@ -47,14 +50,18 @@ public class TestSize {
 
 
     private static void printSizeOfObject(Object obj, String name, PrintWriter pw) {
-        GraphLayout graphLayout = GraphLayout.parseInstance(new Object[]{obj});
-//        pw.println(graphLayout.toPrintable());
         pw.print(name);
         pw.print("\t\t");
-        pw.print(graphLayout.totalSize());
-        pw.print(" bytes / ");
-        pw.print(graphLayout.totalCount());
-        pw.println(" objects");
+        try {
+            SmallGraphLayout graphLayout = SmallGraphLayout.parseInstance(obj);
+            pw.print(graphLayout.totalSize());
+            pw.print(" bytes / ");
+            pw.print(graphLayout.totalCount());
+            pw.println(" objects");
+        } catch (OutOfMemoryError e) {
+//            e.printStackTrace();
+            pw.println(" OutOfMemoryError");
+        }
     }
 
     private static List<Method> enumerateTestMethods(Class<?> clazz) {
@@ -71,4 +78,10 @@ public class TestSize {
         return result;
     }
 
+    class MethodComparator implements Comparator<Method> {
+        @Override
+        public int compare(Method o1, Method o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    }
 }
