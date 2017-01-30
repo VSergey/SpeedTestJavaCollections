@@ -15,6 +15,11 @@ public class TestSizeDoubleList extends TestSize {
     }
 
     @Size
+    public Object Oracle_array() {
+        return new double[size];
+    }
+
+    @Size
     public Object Oracle_ArrayList() {
         List<Double> list = new ArrayList<>();
         for(int i = 0; i < size; i++) {

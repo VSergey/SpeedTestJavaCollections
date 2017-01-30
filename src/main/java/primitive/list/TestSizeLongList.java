@@ -15,6 +15,11 @@ public class TestSizeLongList  extends TestSize {
     }
 
     @Size
+    public Object Oracle_array() {
+        return new long[size];
+    }
+
+    @Size
     public Object Oracle_ArrayList() {
         List<Long> list = new ArrayList<>();
         for(long i = 0; i < size; i++) {
