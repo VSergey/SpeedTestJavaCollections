@@ -75,18 +75,18 @@ public class TesComboLongList {
         return sum;
     }
 
-    @Benchmark
-    public long test_Trove_TLongLinkedList() {
-        TLongLinkedList list = new TLongLinkedList();
-        for(int i = 0; i < size; i++) {
-            list.add(i);
-        }
-        long sum = 0;
-        for(int i = 0; i < size; i++) {
-            sum += list.get(i);
-        }
-        return sum;
-    }
+//    @Benchmark
+//    public long test_Trove_TLongLinkedList() {
+//        TLongLinkedList list = new TLongLinkedList();
+//        for(int i = 0; i < size; i++) {
+//            list.add(i);
+//        }
+//        long sum = 0;
+//        for(int i = 0; i < size; i++) {
+//            sum += list.get(i);
+//        }
+//        return sum;
+//    }
 
     @Benchmark
     public long test_Eclipse_LongArrayList() {

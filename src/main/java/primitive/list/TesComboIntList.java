@@ -75,18 +75,18 @@ public class TesComboIntList {
         return sum;
     }
 
-    @Benchmark
-    public long test_Trove_TIntLinkedList() {
-        TIntLinkedList list = new TIntLinkedList();
-        for(int i = 0; i < size; i++) {
-            list.add(i);
-        }
-        long sum = 0;
-        for(int i = 0; i < size; i++) {
-            sum += list.get(i);
-        }
-        return sum;
-    }
+//    @Benchmark
+//    public long test_Trove_TIntLinkedList() {
+//        TIntLinkedList list = new TIntLinkedList();
+//        for(int i = 0; i < size; i++) {
+//            list.add(i);
+//        }
+//        long sum = 0;
+//        for(int i = 0; i < size; i++) {
+//            sum += list.get(i);
+//        }
+//        return sum;
+//    }
 
     @Benchmark
     public long test_Eclipse_IntArrayList() {
