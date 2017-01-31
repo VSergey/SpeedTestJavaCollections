@@ -70,7 +70,7 @@ public class TestSizeDoubleList extends TestSize {
     }
 
     @Size
-    public Object Eclipse_DoubleLinkedList() {
+    public Object Eclipse_DoubleArrayList() {
         org.eclipse.collections.impl.list.mutable.primitive.DoubleArrayList list = new org.eclipse.collections.impl.list.mutable.primitive.DoubleArrayList();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
@@ -80,7 +80,7 @@ public class TestSizeDoubleList extends TestSize {
     }
 
     @Size
-    public Object FastUtil_DoubleLinkedList() {
+    public Object FastUtil_DoubleArrayList() {
         it.unimi.dsi.fastutil.doubles.DoubleArrayList list = new it.unimi.dsi.fastutil.doubles.DoubleArrayList();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
