@@ -19,22 +19,18 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestGetIntList {
+public class TesComboIntList {
     @Param({"30000"})
     private int size;
-    private List<Integer> list1;
-    private List<Integer> list2;
-    private IntArrayList list3;
-    private TIntArrayList list4;
-//    private TIntLinkedList list5;
-    private org.eclipse.collections.impl.list.mutable.primitive.IntArrayList list6;
-    private it.unimi.dsi.fastutil.ints.IntArrayList list7;
-    private it.unimi.dsi.fastutil.ints.IntBigArrayBigList list8;
 
     @Benchmark
     public long test_Oracle_ArrayList() {
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
-        for(int v : list1) {
+        for(int v : list) {
             sum += v;
         }
         return sum;
@@ -42,8 +38,12 @@ public class TestGetIntList {
 
     @Benchmark
     public long test_Oracle_LinkedList() {
+        List<Integer> list = new LinkedList<>();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
-        for(int v : list2) {
+        for(int v : list) {
             sum += v;
         }
         return sum;
@@ -51,8 +51,12 @@ public class TestGetIntList {
 
     @Benchmark
     public long test_Hppc_IntArrayList() {
+        IntArrayList list = new IntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
-        for(IntCursor v : list3) {
+        for(IntCursor v : list) {
             sum += v.value;
         }
         return sum;
@@ -60,83 +64,76 @@ public class TestGetIntList {
 
     @Benchmark
     public long test_Trove_TIntArrayList() {
+        TIntArrayList list = new TIntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
         for(int i = 0; i < size; i++) {
-            sum += list4.get(i);
+            sum += list.get(i);
         }
         return sum;
     }
 
-//    @Benchmark
-//    public long test_Trove_TIntLinkedList() {
-//        long sum = 0;
-//        for(int i = 0; i < size; i++) {
-//            sum += list5.get(i);
-//        }
-//        return sum;
-//    }
+    @Benchmark
+    public long test_Trove_TIntLinkedList() {
+        TIntLinkedList list = new TIntLinkedList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
+        long sum = 0;
+        for(int i = 0; i < size; i++) {
+            sum += list.get(i);
+        }
+        return sum;
+    }
 
     @Benchmark
     public long test_Eclipse_IntArrayList() {
+        org.eclipse.collections.impl.list.mutable.primitive.IntArrayList list = new org.eclipse.collections.impl.list.mutable.primitive.IntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
         for(int i = 0; i < size; i++) {
-            sum += list6.get(i);
+            sum += list.get(i);
         }
         return sum;
     }
 
     @Benchmark
     public long test_FastUtil_IntArrayList() {
+        it.unimi.dsi.fastutil.ints.IntArrayList list = new it.unimi.dsi.fastutil.ints.IntArrayList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
         for(int i = 0; i < size; i++) {
-            sum += list7.getInt(i);
+            sum += list.getInt(i);
         }
         return sum;
     }
 
     @Benchmark
     public long test_FastUtil_IntBigArrayBigList() {
+        it.unimi.dsi.fastutil.ints.IntBigArrayBigList list = new it.unimi.dsi.fastutil.ints.IntBigArrayBigList();
+        for(int i = 0; i < size; i++) {
+            list.add(i);
+        }
         long sum = 0;
         for(int i = 0; i < size; i++) {
-            sum += list8.getInt(i);
+            sum += list.getInt(i);
         }
         return sum;
     }
 
-    @Setup(Level.Trial)
-    public void setup() {
-        list1 = new ArrayList<>(size);
-        list2 = new LinkedList<>();
-        list3 = new IntArrayList(size);
-        list4 = new TIntArrayList(size);
-//        list5 = new TIntLinkedList();
-        list6 = new org.eclipse.collections.impl.list.mutable.primitive.IntArrayList(size);
-        list7 = new it.unimi.dsi.fastutil.ints.IntArrayList(size);
-        list8 = new it.unimi.dsi.fastutil.ints.IntBigArrayBigList(size);
-
-        for(int i = 0; i < size; i++) {
-            list1.add(i);
-            list2.add(i);
-            list3.add(i);
-            list4.add(i);
-//            list5.add(i);
-            list6.add(i);
-            list7.add(i);
-            list8.add(i);
-        }
-
-        System.gc();
-        System.gc();
-        System.gc();
-    }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestGetIntList.class.getSimpleName())
+                .include(TesComboIntList.class.getSimpleName())
                 .param("size","50000","100000","500000","1000000")
                 .build();
 
         new Runner(opt).run();
     }
-
 }
