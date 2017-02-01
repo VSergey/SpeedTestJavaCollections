@@ -1,9 +1,8 @@
-package primitive.list;
+package primitive.list.list4double;
 
 import com.carrotsearch.hppc.DoubleArrayList;
 import com.carrotsearch.hppc.cursors.DoubleCursor;
 import gnu.trove.list.array.TDoubleArrayList;
-import gnu.trove.list.linked.TDoubleLinkedList;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;

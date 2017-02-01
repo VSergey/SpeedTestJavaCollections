@@ -1,4 +1,4 @@
-package primitive.list;
+package primitive.list.list4long;
 
 import com.carrotsearch.hppc.LongArrayList;
 import gnu.trove.list.array.TLongArrayList;

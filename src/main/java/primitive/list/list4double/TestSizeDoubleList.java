@@ -1,103 +1,106 @@
-package primitive.list;
+package primitive.list.list4double;
 
 import com.carrotsearch.hppc.DoubleArrayList;
 import gnu.trove.list.array.TDoubleArrayList;
 import gnu.trove.list.linked.TDoubleLinkedList;
-import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
+import tools.Size;
+import tools.TestSize;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@Fork(1)
-@State(Scope.Benchmark)
-public class TestAddToDoubleList {
-    @Param({"30000"})
-    private int size;
+public class TestSizeDoubleList extends TestSize {
 
-    @Benchmark
-    public void test_Oracle_ArrayList() {
+    public TestSizeDoubleList(Integer size) {
+        super(size);
+    }
+
+    @Size
+    public Object Oracle_array() {
+        return new double[size];
+    }
+
+    @Size
+    public Object Oracle_ArrayList() {
         List<Double> list = new ArrayList<>();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
             list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_Oracle_LinkedList() {
+    @Size
+    public Object Oracle_LinkedList() {
         List<Double> list = new LinkedList<>();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
             list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_Hppc_DoubleArrayList() {
+    @Size
+    public Object Hppc_DoubleArrayList() {
         DoubleArrayList list = new DoubleArrayList();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
             list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_Trove_TDoubleArrayList() {
+    @Size
+    public Object Trove_TDoubleArrayList() {
         TDoubleArrayList list = new TDoubleArrayList();
         for(int i = 0; i < size; i++) {
-            list.add(i);
+            double v = i/0.333;
+            list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_Trove_TDoubleLinkedList() {
+    @Size
+    public Object Trove_TDoubleLinkedList() {
         TDoubleLinkedList list = new TDoubleLinkedList();
         for(int i = 0; i < size; i++) {
-            list.add(i);
+            double v = i/0.333;
+            list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_Eclipse_DoubleArrayList() {
+    @Size
+    public Object Eclipse_DoubleArrayList() {
         org.eclipse.collections.impl.list.mutable.primitive.DoubleArrayList list = new org.eclipse.collections.impl.list.mutable.primitive.DoubleArrayList();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
             list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_FastUtil_DoubleArrayList() {
+    @Size
+    public Object FastUtil_DoubleArrayList() {
         it.unimi.dsi.fastutil.doubles.DoubleArrayList list = new it.unimi.dsi.fastutil.doubles.DoubleArrayList();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
             list.add(v);
         }
+        return list;
     }
 
-    @Benchmark
-    public void test_FastUtil_DoubleBigArrayBigList() {
+    @Size
+    public Object FastUtil_DoubleBigArrayBigList() {
         it.unimi.dsi.fastutil.doubles.DoubleBigList list = new it.unimi.dsi.fastutil.doubles.DoubleBigArrayBigList();
         for(int i = 0; i < size; i++) {
             double v = i/0.333;
             list.add(v);
         }
+        return list;
     }
 
-    public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder()
-                .include(TestAddToDoubleList.class.getSimpleName())
-                .param("size","50000","100000","500000","1000000")
-                .build();
-
-        new Runner(opt).run();
+    public static void main(String[] args) throws Exception {
+        run(TestSizeDoubleList.class);
     }
+
 }

@@ -1,4 +1,4 @@
-package primitive.list;
+package primitive.list.list4int;
 
 import com.carrotsearch.hppc.IntArrayList;
 import gnu.trove.list.array.TIntArrayList;

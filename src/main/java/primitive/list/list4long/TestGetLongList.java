@@ -1,9 +1,8 @@
-package primitive.list;
+package primitive.list.list4long;
 
 import com.carrotsearch.hppc.LongArrayList;
 import com.carrotsearch.hppc.cursors.LongCursor;
 import gnu.trove.list.array.TLongArrayList;
-import gnu.trove.list.linked.TLongLinkedList;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
