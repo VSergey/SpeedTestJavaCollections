@@ -1,6 +1,9 @@
 package objects.set;
 
 import com.carrotsearch.hppc.*;
+import gnu.trove.set.hash.*;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashBigSet;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 import tools.Size;
@@ -76,6 +79,30 @@ public class TestSizeSet extends TestSize {
             set.add(Integer.toString(i));
         }
         return set;
+    }
+
+    @Size
+    public Object FastUtil_ObjectOpenHashSet() {
+        ObjectOpenHashSet<String> set = new ObjectOpenHashSet<>();
+        return fillSet(set);
+    }
+
+    @Size
+    public Object FastUtil_ObjectOpenHashBigSet() {
+        ObjectOpenHashBigSet<String> set = new ObjectOpenHashBigSet<>();
+        return fillSet(set);
+    }
+
+    @Size
+    public Object Trove_THashSet() {
+        THashSet<String> set = new THashSet<>();
+        return fillSet(set);
+    }
+
+    @Size
+    public Object Trove_TLinkedHashSet() {
+        TLinkedHashSet<String> set = new TLinkedHashSet<>();
+        return fillSet(set);
     }
 
     public static void main(String[] args) throws Exception {

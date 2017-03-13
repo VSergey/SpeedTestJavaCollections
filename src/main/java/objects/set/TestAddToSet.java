@@ -1,6 +1,9 @@
 package objects.set;
 
 import com.carrotsearch.hppc.*;
+import gnu.trove.set.hash.*;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashBigSet;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 import org.openjdk.jmh.annotations.*;
@@ -81,6 +84,30 @@ public class TestAddToSet {
         for(int i = 0; i < size; i++) {
             set.add(Integer.toString(i));
         }
+    }
+
+    @Benchmark
+    public void test_FastUtil_ObjectOpenHashSet() {
+        ObjectOpenHashSet<String> set = new ObjectOpenHashSet<>();
+        fillSet(set);
+    }
+
+    @Benchmark
+    public void test_FastUtil_ObjectOpenHashBigSet() {
+        ObjectOpenHashBigSet<String> set = new ObjectOpenHashBigSet<>();
+        fillSet(set);
+    }
+
+    @Benchmark
+    public void test_Trove_THashSet() {
+        THashSet<String> set = new THashSet<>();
+        fillSet(set);
+    }
+
+    @Benchmark
+    public void test_Trove_TLinkedHashSet() {
+        TLinkedHashSet<String> set = new TLinkedHashSet<>();
+        fillSet(set);
     }
 
     public static void main(String[] args) throws RunnerException {
