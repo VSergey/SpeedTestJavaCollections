@@ -39,131 +39,147 @@ public class TestContainsIntInSets {
     private TIntHashSet set16;
 
     @Benchmark
-    public void test_Oracle_HashSet() {
+    public int test_Oracle_HashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set1.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Oracle_LinkedHashSet() {
+    public int test_Oracle_LinkedHashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set2.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Oracle_TreeSet() {
+    public int test_Oracle_TreeSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set3.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_HPPC_IntHashSet() {
+    public int test_HPPC_IntHashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set4.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_HPPC_IntScatterSet() {
+    public int test_HPPC_IntScatterSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set5.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Eclipse_IntHashSet() {
+    public int test_Eclipse_IntHashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set6.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Fastutil_IntOpenHashSet() {
+    public int test_Fastutil_IntOpenHashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set7.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Fastutil_IntOpenHashBigSet() {
+    public int test_Fastutil_IntOpenHashBigSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set8.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Fastutil_IntAVLTreeSet() {
+    public int test_Fastutil_IntAVLTreeSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set9.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Fastutil_IntLinkedOpenHashSet() {
+    public int test_Fastutil_IntLinkedOpenHashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set10.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Fastutil_IntRBTreeSet() {
+    public int test_Fastutil_IntRBTreeSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set11.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Koloboke_MutableLHashIntSet() {
+    public int test_Koloboke_MutableLHashIntSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set12.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Koloboke_MutableQHashIntSet() {
+    public int test_Koloboke_MutableQHashIntSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set13.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Koloboke_UpdatableLHashIntSet() {
+    public int test_Koloboke_UpdatableLHashIntSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set14.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Koloboke_UpdatableQHashIntSet() {
+    public int test_Koloboke_UpdatableQHashIntSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set15.contains(i)) count++;
         }
+        return count;
     }
 
     @Benchmark
-    public void test_Trove_TIntHashSet() {
+    public int test_Trove_TIntHashSet() {
         int count = 0;
         for(int i = 1; i < size; i+=3) {
             if(set16.contains(i)) count++;
         }
+        return count;
     }
 
     @Setup(Level.Trial)

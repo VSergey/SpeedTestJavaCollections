@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(1)
 @State(Scope.Benchmark)
-public class TestAddToSet {
+public class TestAddToSets {
     @Param({"30000"})
     private int size;
 
@@ -112,7 +112,7 @@ public class TestAddToSet {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(TestAddToSet.class.getSimpleName())
+                .include(TestAddToSets.class.getSimpleName())
                 .param("size","50000","100000","500000","1000000")
                 .build();
 

@@ -33,7 +33,7 @@ public class TestSizeList extends TestSize {
 
     @Size
     public Object Hppc_ObjectArrayList() {
-        ObjectArrayList list = new ObjectArrayList();
+        ObjectArrayList<String> list = new ObjectArrayList<>();
         for(int i = 0; i < size; i++) {
             list.add(Integer.toString(i));
         }
@@ -42,7 +42,7 @@ public class TestSizeList extends TestSize {
 
     @Size
     public Object FastUtil_ObjectBigArrayBigList() {
-        ObjectBigArrayBigList list = new ObjectBigArrayBigList();
+        ObjectBigArrayBigList<String> list = new ObjectBigArrayBigList<>();
         for(int i = 0; i < size; i++) {
             list.add(Integer.toString(i));
         }
@@ -51,7 +51,7 @@ public class TestSizeList extends TestSize {
 
     @Size
     public Object FastUtil_ObjectArrayList() {
-        it.unimi.dsi.fastutil.objects.ObjectArrayList list = new it.unimi.dsi.fastutil.objects.ObjectArrayList();
+        it.unimi.dsi.fastutil.objects.ObjectArrayList<String> list = new it.unimi.dsi.fastutil.objects.ObjectArrayList<>();
         for(int i = 0; i < size; i++) {
             list.add(Integer.toString(i));
         }

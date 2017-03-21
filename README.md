@@ -1,7 +1,7 @@
 # SpeedTestJavaCollections
 Performance test of Java collections from different frameworks.
 
-I used [JMH](http://java-performance.info/jmh/) 1.17.3 in tests grouped by types and common operations.
+I used [JMH](http://openjdk.java.net/projects/code-tools/jmh/) 1.18 in tests grouped by types and common operations.
 For measure memory utilization used [JOL](http://openjdk.java.net/projects/code-tools/jol/)
 
 Currently tested next frameworks:
